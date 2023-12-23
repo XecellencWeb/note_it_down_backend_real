@@ -6,10 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const users_1 = __importDefault(require("../../models/users"));
 exports.default = {
     getUser: async (_, args) => {
-        const userName = args.name;
+        const name = args.name;
         const password = args.password;
         try {
-            const user = await users_1.default.findOne({ name: userName });
+            const user = await users_1.default.findOne({ name });
             if (!user) {
                 throw new Error("User does not exist");
             }
