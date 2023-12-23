@@ -14,7 +14,7 @@ const userDefinition = (0, apollo_server_1.gql) `
 
   input UsersInput {
     name: String
-    email: String
+    gender: String
     password: String
     title: String
     picture: String
