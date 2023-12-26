@@ -26,7 +26,21 @@ exports.default = {
         const userId = args._id;
         try {
             const authorizedUsers = await users_1.default.findById(userId);
-            return authorizedUsers.authorized.sort((a, b) => a.name - b.name);
+            return (authorizedUsers.authorized
+                .filter((user) => user.authorized)
+                .sort((a, b) => a.name - b.name));
+        }
+        catch (err) {
+            throw new Error(err.message);
+        }
+    },
+    getUserResquestingAuthorisation: async (_, args) => {
+        const userId = args._id;
+        try {
+            const authorizedUsers = await users_1.default.findById(userId);
+            return (authorizedUsers.authorized
+                .filter((user) => !user.authorized)
+                .sort((a, b) => a.name - b.name));
         }
         catch (err) {
             throw new Error(err.message);
@@ -36,9 +50,9 @@ exports.default = {
         const searchString = args.searchString;
         try {
             const searchedUsers = await users_1.default.find({
-                $in: [
-                    { name: { $regex: searchString } },
-                    { title: { $regex: searchString } },
+                $or: [
+                    { name: { $regex: searchString, $options: "i" } },
+                    { title: { $regex: searchString, $options: "i" } },
                 ],
             }).sort({ name: -1 });
             return searchedUsers;

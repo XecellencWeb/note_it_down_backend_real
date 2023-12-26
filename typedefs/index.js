@@ -9,8 +9,9 @@ const tasks_1 = __importDefault(require("./definitions/tasks"));
 const typeDefs = (0, apollo_server_1.gql) `
   type Query {
     getUser(name:String!,password:String!): Users!
-    getAuthorisedUsers(_id: ID!): [Users]
-    getUserSearch(searchString: String!): [Users]
+    getAuthorisedUsers(_id: ID!): [Users]!
+    getUserResquestingAuthorisation(_id: ID!): [Users]!
+    getUserSearch(searchString: String!): [Users]!
 
     getTasks(createdBy: ID!): [Tasks!]!
   }
